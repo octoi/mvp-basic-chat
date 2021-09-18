@@ -22,7 +22,11 @@
 
     const socket = io();
 
-    socket.emit('join-room', username)
+    socket.emit('join-room', username);
+
+    socket.on('users', users => {
+      console.log(users);
+    })
   </script>
 </body>
 

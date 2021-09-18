@@ -22,6 +22,13 @@ io.on('connection', (socket) => {
   console.log(`[+] ${socket.id} connected`)
 
   socket.on('join-room', (username) => {
-    // users[socket.id]
+    socket.join('chat');
+    users[socket.id] = username;
+    io.emit('users', Object.keys(users).map((key) => users[key]));
+  })
+
+  socket.on('disconnect', () => {
+    delete users[socket.id];
+    io.emit('users', Object.keys(users).map((key) => users[key]));
   })
 })
