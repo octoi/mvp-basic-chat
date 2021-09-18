@@ -24,11 +24,25 @@ io.on('connection', (socket) => {
   socket.on('join-room', (username) => {
     socket.join('chat');
     users[socket.id] = username;
-    io.emit('users', Object.keys(users).map((key) => users[key]));
+    socket.broadcast.emit('message', {
+      sender: 'SERVER ✅',
+      message: `${username} has hoped into server 🥳`
+    })
   })
 
+  socket.on('message', (username, message) => {
+    socket.broadcast.emit('message', {
+      sender: `${username}`,
+      message
+    })
+  });
+
   socket.on('disconnect', () => {
+    const user = users[socket.id];
+    socket.broadcast.emit('message', {
+      sender: 'SERVER ✅',
+      message: `${user} left the chat 🚶‍♂️`
+    })
     delete users[socket.id];
-    io.emit('users', Object.keys(users).map((key) => users[key]));
   })
 })

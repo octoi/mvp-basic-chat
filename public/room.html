@@ -10,8 +10,18 @@
   <title>Room</title>
 </head>
 
-<body>
-  <h2 id="name"></h2>
+<body class="text-light p-5">
+  <h2>Basic chat</h2>
+
+  <div class="mt-5 mb-5 messages">
+
+  </div>
+
+  <div class="input-group mb-3">
+    <input type="text" class="form-control bg-dark p-2" placeholder="type a message" aria-label="type a message"
+      aria-describedby="button-addon2">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Send</button>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
   <script>
@@ -24,9 +34,21 @@
 
     socket.emit('join-room', username);
 
-    socket.on('users', users => {
-      console.log(users);
+    const messagesContainer = document.querySelector('.messages');
+
+    messagesContainer.innerHTML = '';
+
+    socket.on('message', (data) => {
+      messagesContainer.innerHTML += `
+      <div style="width: 100%;" class="mt-2 card bg-dark" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">${data.sender}</h5>
+          <p class="card-text">${data.message}</p>
+        </div>
+      </div>
+      `
     })
+
   </script>
 </body>
 
