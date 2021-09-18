@@ -1,0 +1,19 @@
+body {
+  background: #101010;
+}
+
+.inp-home {
+  width: 25%;
+}
+
+@media (max-width: 1000px) {
+  .inp-home {
+    width: 50%;
+  }
+}
+
+@media (max-width: 500px) {
+  .inp-home {
+    width: 80%;
+  }
+}
