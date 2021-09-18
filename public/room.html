@@ -6,17 +6,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./main.css">
   <title>Room</title>
 </head>
 
 <body>
   <h2 id="name"></h2>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const myParam = urlParams.get('name');
+    const username = urlParams.get('name');
 
-    document.getElementById('name').innerText = myParam
+    if (!username) window.location.href = '/';
+
+    const socket = io();
+
+    socket.emit('join-room', username)
   </script>
 </body>
 

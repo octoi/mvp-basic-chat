@@ -1,25 +1,27 @@
-const http = require('http');
 const path = require('path');
 const express = require('express');
 const socketIo = require('socket.io');
 
 const app = express();
-const server = http.createServer(app);
-const io = socketIo(server);
+app.use(express.static('public'))
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/index.html'))
 })
 
+const port = process.env.PORT || 5000;
+const server = app.listen(port, () => {
+  console.log(`[+] server running at http://localhost:${port}`);
+})
+
+const io = socketIo(server);
+
+const users = {};
+
 io.on('connection', (socket) => {
   console.log(`[+] ${socket.id} connected`)
 
-  socket.on('join-room', () => {
-
+  socket.on('join-room', (username) => {
+    // users[socket.id]
   })
-})
-
-const port = process.env.PORT || 5000;
-app.listen(port, () => {
-  console.log(`[+] server running at http://localhost:${port}`);
 })
