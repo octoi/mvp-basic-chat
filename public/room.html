@@ -17,11 +17,11 @@
 
   </div>
 
-  <div class="input-group mb-3">
+  <form id="message-form" class="input-group mb-3">
     <input id="message-input" type="text" class="text-light form-control bg-dark p-2" placeholder="type a message"
       aria-label="type a message" aria-describedby="button-addon2">
-    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Send</button>
-  </div>
+    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Send</button>
+  </form>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
   <script>
@@ -47,9 +47,11 @@
         </div>
       </div>
       `
+      window.scrollTo(0, document.body.scrollHeight);
     })
 
-    document.getElementById('button-addon2').addEventListener('click', () => {
+    document.getElementById('message-form').addEventListener('submit', (e) => {
+      e.preventDefault();
       const message = document.getElementById('message-input').value;
       if (message.trim().length == 0) {
         alert('Enter a message first :)')
