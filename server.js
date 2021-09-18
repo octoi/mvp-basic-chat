@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('message', (username, message) => {
-    socket.broadcast.emit('message', {
+    io.emit('message', {
       sender: `${username}`,
       message
     })
