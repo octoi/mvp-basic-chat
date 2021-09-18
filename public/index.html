@@ -13,9 +13,21 @@
 <body class="text-light">
   <div style="height: 100vh;" class="d-flex flex-column justify-content-center align-items-center">
     <h1>Chat App</h1>
-    <input class="form-control inp-home m-4" placeholder="What people should call you ??" />
-    <button class="btn btn-primary">Join Room</button>
+    <input id="name" class="form-control inp-home m-4" placeholder="What people should call you ??" />
+    <button onclick="submitForm()" class="btn btn-primary">Join Room</button>
   </div>
+
+  <script>
+    function submitForm() {
+      const name = document.getElementById('name').value;
+      if (name.trim().length == 0) {
+        alert("Please enter your name :)")
+        return;
+      }
+
+      window.location.href = `./room.html?name=${name}`
+    }
+  </script>
 </body>
 
 </html>
